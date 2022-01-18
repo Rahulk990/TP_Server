@@ -13,7 +13,7 @@ public class TokenInterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(tokenInterceptor).excludePathPatterns("/login", "/register");
+        registry.addInterceptor(tokenInterceptor).excludePathPatterns("/login/**", "/register/**");
     }
 
 }
