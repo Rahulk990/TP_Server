@@ -5,6 +5,7 @@ import com.flock.TP_server.Models.User;
 import com.flock.TP_server.Repositories.AuthTokenRepository;
 import com.flock.TP_server.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
