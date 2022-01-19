@@ -21,4 +21,16 @@ create table tokens_table (
     primary key(user_id, token),
     foreign key (user_id) references users_table(user_id)
 );
+
+create table contacts_table (
+	user_id int not null,
+	contact_id varchar(100) not null,
+	full_name varchar(100) not null,
+	email varchar(100),
+	address varchar(300),
+	phone_number varchar(20),
+	score int,
+    foreign key (user_id) references users_table(user_id),
+    primary key(user_id, contact_id)
+);
 ```
