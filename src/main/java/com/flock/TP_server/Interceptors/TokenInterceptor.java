@@ -17,10 +17,11 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // System.out.println("In the Pre Handle Interceptor");
+        System.out.println("In the Pre Handle Interceptor");
 
-        // Verify the AuthTokens
         String token = request.getHeader("Authorization");
+        System.out.println(token);
+
         boolean isPresent = authTokenRepository.checkToken(token);
         if(isPresent) {
             AuthToken authToken = authTokenRepository.getAuthTokenByToken(token);
