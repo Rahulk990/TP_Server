@@ -13,24 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    AuthTokenRepository authTokenRepository;
+    private AuthTokenRepository authTokenRepository;
 
     @PostMapping("/login")
     public String loginUser(@RequestBody User user)
     {
-        // Checks the Credentials in the Database
         boolean isPresent = userRepository.checkCredentials(user);
         if(!isPresent){
             return "Incorrect Email or Password";
         }
 
-        // Fetches the User Details
         User userDetails = userRepository.getUserByEmail(user.getEmail());
 
-        // Generates and return Token
         AuthToken authToken = new AuthToken(userDetails.getUserId());
         authTokenRepository.insertAuthToken(authToken);
         return authToken.getToken();
@@ -39,17 +36,13 @@ public class AuthenticationController {
     @PostMapping("/register")
     public String registerUser(@RequestBody User user)
     {
-        // Check the Credentials in the Database
         boolean isSuccess = userRepository.insertUser(user);
-        System.out.println(isSuccess);
         if(!isSuccess){
             return "Email Already Exists";
         }
 
-        // Fetches the User Details
         User userDetails = userRepository.getUserByEmail(user.getEmail());
 
-        // Generates and return Token
         AuthToken authToken = new AuthToken(userDetails.getUserId());
         authTokenRepository.insertAuthToken(authToken);
         return authToken.getToken();

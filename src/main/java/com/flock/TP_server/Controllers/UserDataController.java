@@ -5,30 +5,25 @@ import com.flock.TP_server.Models.User;
 import com.flock.TP_server.Repositories.AuthTokenRepository;
 import com.flock.TP_server.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserDataController {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    AuthTokenRepository authTokenRepository;
+    private UserRepository userRepository;
 
     @GetMapping("/status")
-    public String getStatus()
+    public String getStatus(@RequestAttribute int userId)
     {
+        System.out.println(userId);
         return "OK";
     }
 
     @GetMapping("/userData")
-    public User getUserData(@RequestHeader("Authorization") String token)
+    public User getUserData(@RequestAttribute int userId)
     {
-        AuthToken authToken = authTokenRepository.getAuthTokenByToken(token);
-        return userRepository.getUserByUserId(authToken.getUserId());
+        return userRepository.getUserByUserId(userId);
     }
 
 }

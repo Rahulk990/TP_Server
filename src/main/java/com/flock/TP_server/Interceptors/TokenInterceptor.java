@@ -1,5 +1,6 @@
 package com.flock.TP_server.Interceptors;
 
+import com.flock.TP_server.Models.AuthToken;
 import com.flock.TP_server.Repositories.AuthTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenInterceptor implements HandlerInterceptor {
 
     @Autowired
-    AuthTokenRepository authTokenRepository;
+    private AuthTokenRepository authTokenRepository;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -22,6 +23,8 @@ public class TokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         boolean isPresent = authTokenRepository.checkToken(token);
         if(isPresent) {
+            AuthToken authToken = authTokenRepository.getAuthTokenByToken(token);
+            request.setAttribute("userId", authToken.getUserId());
             return true;
         }
 
