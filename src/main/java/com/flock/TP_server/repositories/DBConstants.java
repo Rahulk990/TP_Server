@@ -26,5 +26,32 @@ public interface DBConstants {
         String SQL_GET_USER_BY_EMAIL = "select * from users_table where email = :email";
     }
 
+    interface ContactsColumns {
+        String SQL_USER_ID = "user_id";
+        String SQL_CONTACT_ID = "contact_id";
+        String SQL_FULL_NAME = "full_name";
+        String SQL_EMAIL = "email";
+        String SQL_ADDRESS = "address";
+        String SQL_PHONE_NUMBER = "phone_number";
+        String SQL_SCORE = "score";
+    }
+
+    interface ContactsQueries {
+        String SQL_GET_USER_CONTACTS = "select * from contacts_table where user_id = :user_id";
+        String SQL_ADD_USER_CONTACT = "insert into contacts_table " +
+                "(user_id, contact_id, full_name, email, address, phone_number, score)" +
+                " values " +
+                "(:user_id, :contacts_id, :full_name, :email, :address, :phone_number, :score)";
+        String SQL_UPDATE_USER_CONTACT = "update contacts_table set " +
+                "full_name = :full_name, " +
+                "email = :email, " +
+                "address = :address" +
+                "phone_number = :phone_number, " +
+                "score = :score " +
+                "where user_id = :user_id and contact_id=:contact_id";
+        String SQL_DELETE_USER_CONTACT = "delete from contacts_table " +
+                "where user_id = :user_id and contact_id = :contact_id";
+    }
+
 }
 

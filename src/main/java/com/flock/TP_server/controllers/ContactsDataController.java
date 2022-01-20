@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ContactsDataController {
 
     @Autowired
-    private UserService contactsService;
+    private ContactsService contactsService;
 
     @GetMapping("/contacts")
     public List<Contact> getUserContacts(@RequestAttribute int userId) {
@@ -24,7 +24,7 @@ public class ContactsDataController {
 
     @PostMapping(path = "/contact", consumes="application/json", produces="application/json")
     public Contact addUserContact(@RequestAttribute int userId, @RequestBody Contact contact) {
-        return contactsService.addUserData(userId, contact);
+        return contactsService.addUserContact(userId, contact);
     }
 
     @PutMapping("/contact")
