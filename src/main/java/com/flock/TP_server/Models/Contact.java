@@ -26,7 +26,7 @@ public class Contact {
         return userId;
     }
 
-    public String setUserId(int userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -34,7 +34,7 @@ public class Contact {
         return contactId;
     }
 
-    public String setContactId(String contactId) {
+    public void setContactId(String contactId) {
         this.contactId = contactId;
     }
 
