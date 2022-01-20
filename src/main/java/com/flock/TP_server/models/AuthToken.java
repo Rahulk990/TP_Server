@@ -1,4 +1,4 @@
-package com.flock.TP_server.Models;
+package com.flock.TP_server.models;
 
 import java.sql.Timestamp;
 
@@ -7,11 +7,12 @@ public class AuthToken {
     private int userId;
     private String token;
 
-    public AuthToken() {}
+    public AuthToken() {
+    }
 
     public AuthToken(int userId) {
         this.userId = userId;
-        this.token = (new Timestamp(System.currentTimeMillis()).toString()) + String.valueOf(userId);
+        this.token = (new Timestamp(System.currentTimeMillis()).toString()) + userId;
     }
 
     public int getUserId() {

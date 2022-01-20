@@ -1,6 +1,6 @@
-package com.flock.TP_server.Configurations;
+package com.flock.TP_server.configurations;
 
-import com.flock.TP_server.Interceptors.TokenInterceptor;
+import com.flock.TP_server.interceptors.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

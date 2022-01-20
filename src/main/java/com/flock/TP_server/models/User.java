@@ -1,4 +1,4 @@
-package com.flock.TP_server.Models;
+package com.flock.TP_server.models;
 
 public class User {
 
@@ -7,7 +7,8 @@ public class User {
     private String email;
     private String passwordHash;
 
-    public User() {}
+    public User() {
+    }
 
     public User(int userId, String fullName, String email, String passwordHash) {
         this.userId = userId;
