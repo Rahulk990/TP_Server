@@ -45,7 +45,7 @@ public interface DBConstants {
         String SQL_UPDATE_USER_CONTACT = "update contacts_table set " +
                 "full_name = :full_name, " +
                 "email = :email, " +
-                "address = :address" +
+                "address = :address, " +
                 "phone_number = :phone_number, " +
                 "score = :score " +
                 "where user_id = :user_id and contact_id=:contact_id";
