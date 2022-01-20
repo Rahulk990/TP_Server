@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 public class ContactsDataController {
@@ -23,17 +25,17 @@ public class ContactsDataController {
     }
 
     @PostMapping(path = "/contact", consumes="application/json", produces="application/json")
-    public Contact addUserContact(@RequestAttribute int userId, @RequestBody Contact contact) {
+    public boolean addUserContact(@RequestAttribute int userId, @RequestBody Contact contact) {
         return contactsService.addUserContact(userId, contact);
     }
 
     @PutMapping("/contact")
-    public Contact updateUserContact(@RequestAttribute int userId, @RequestBody Contact contact) {
-        return contactsService.updateUserContact(userId, contact);
+    public boolean updateUserContact(@RequestBody Contact contact) {
+        return contactsService.updateUserContact(contact);
     }
 
     @DeleteMapping("/contact/{contactId}")
-    public Contact deleteUserContact(@RequestAttribute int userId, @PathVariable String contactId) {
+    public boolean deleteUserContact(@RequestAttribute int userId, @PathVariable String contactId) {
         return contactsService.deleteUserContact(userId, contactId);
     }
 

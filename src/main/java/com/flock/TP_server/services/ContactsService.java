@@ -5,6 +5,7 @@ import com.flock.TP_server.repositories.ContactsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -17,16 +18,18 @@ public class ContactsService {
         return contactsRepository.getUserContacts(userId);
     }
 
-    public Contact addUserContact(Contact contact){
+    public boolean addUserContact(int userId, Contact contact){
+        contact.setUserId(userId);
+        contact.setContactId((new Timestamp(System.currentTimeMillis()).toString()));
         return contactsRepository.addUserContact(contact);
     }
 
-    public Contact updateUserContact(Contact contact){
+    public boolean updateUserContact(Contact contact){
         return contactsRepository.updateUserContact(contact);
     }
 
-    public Contact deleteUserContact(Contact contact){
-        return contactsRepository.deleteUserContact(contact);
+    public boolean deleteUserContact(int userId, String contactId){
+        return contactsRepository.deleteUserContact(userId, contactId);
     }
 
 }

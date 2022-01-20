@@ -1,11 +1,10 @@
 package com.flock.TP_server.models;
 
-import java.sql.Timestamp;
 
 public class Contact {
-    private int userId;
-    private String contactId;
-    private String fullName;
+    private int userId=0;
+    private String contactId="";
+    private String fullName="";
     private String email="";
     private String address="";
     private String phoneNumber="";
@@ -13,22 +12,30 @@ public class Contact {
 
     public Contact() {}
 
-    public Contact(int userId, String fullName, String email, String address, String phoneNumber) {
+    public Contact(int userId, String contactId, String fullName, String email, String address, String phoneNumber, int score) {
         this.userId = userId;
-        this.contactId = (new Timestamp(System.currentTimeMillis()).toString()) + String.valueOf(userId);
+        this.contactId = contactId;
         this.fullName = fullName;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.score = 0;
+        this.score = score;
     }
 
     public int getUserId() {
         return userId;
     }
 
+    public String setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public String getContactId() {
         return contactId;
+    }
+
+    public String setContactId(String contactId) {
+        this.contactId = contactId;
     }
 
     public String getFullName() {
@@ -63,7 +70,9 @@ public class Contact {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getScore() { return score;}
+    public int getScore() {
+        return score;
+    }
 
     public void setScore(int score) {
         this.score = score;

@@ -1,4 +1,4 @@
-package com.flock.TP_server.Repositories;
+package com.flock.TP_server.repositories;
 
 import com.flock.TP_server.models.AuthToken;
 import org.springframework.beans.factory.annotation.Autowired;
