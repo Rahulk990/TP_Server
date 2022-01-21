@@ -2,6 +2,7 @@ package com.flock.TP_server.services;
 
 import com.flock.TP_server.models.Contact;
 import com.flock.TP_server.repositories.ContactsRepository;
+import com.flock.TP_server.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ContactsService {
 
     public Contact addUserContact(Integer userId, Contact contact){
         contact.setUserId(userId);
-        contact.setContactId(new Timestamp(System.currentTimeMillis()).toString());
+        contact.setContactId(StringUtils.generateRandomString(10));
         return contactsRepository.addUserContact(contact);
     }
 

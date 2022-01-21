@@ -1,9 +1,11 @@
 package com.flock.TP_server.services;
 
+import com.flock.TP_server.exception.ResourceNotFoundException;
 import com.flock.TP_server.models.AuthToken;
 import com.flock.TP_server.models.User;
 import com.flock.TP_server.repositories.AuthTokenRepository;
 import com.flock.TP_server.repositories.UserRepository;
+import com.flock.TP_server.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +27,13 @@ public class AuthenticationService {
         return authToken.getToken();
     }
 
+
     public String loginUser(User user) {
+        String passwordHash = StringUtils.generateHashForString(user.getPasswordHash());
+        user.setPasswordHash(passwordHash);
         boolean isPresent = userRepository.checkCredentials(user);
         if (!isPresent) {
-            return "Incorrect Email or Password";
+            throw new ResourceNotFoundException("Incorrect Email or Password");
         }
 
         User userDetails = userService.getUserData(user.getEmail());
@@ -36,12 +41,11 @@ public class AuthenticationService {
     }
 
     public String registerUser(User user) {
-        boolean isSuccess = userRepository.insertUser(user);
-        if (!isSuccess) {
-            return "Email Already Exists";
-        }
-
-        User userDetails = userService.getUserData(user.getEmail());
+        String passwordHash = StringUtils.generateHashForString(user.getPasswordHash());
+        user.setPasswordHash(passwordHash);
+        System.out.println(user.getPasswordHash());
+        userRepository.insertUser(user);
+        User userDetails = userRepository.getUserByEmail(user.getEmail());
         return generateToken(userDetails);
     }
 

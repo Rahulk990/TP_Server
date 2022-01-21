@@ -21,4 +21,19 @@ public class ControllerExceptionHandler {
         ErrorMessage message = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return message;
     }
+
+    @ExceptionHandler(DuplicateEntryException.class)
+    @ResponseStatus(value = HttpStatus.CONFLICT)
+    public ErrorMessage duplicateEntryException(DuplicateEntryException ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(HttpStatus.CONFLICT.value(), ex.getMessage());
+        return message;
+    }
+
+    @ExceptionHandler(DBException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage dbException(DBException ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Database operation failed");
+        return message;
+    }
+
 }

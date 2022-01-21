@@ -1,8 +1,12 @@
 package com.flock.TP_server.repositories;
 
+import com.flock.TP_server.exception.DBException;
+import com.flock.TP_server.exception.DuplicateEntryException;
+import com.flock.TP_server.exception.ResourceNotFoundException;
 import com.flock.TP_server.models.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -35,32 +39,38 @@ public class ContactsRepository implements DBConstants {
     public List<Contact> getUserContacts(Integer userId) {
         MapSqlParameterSource jdbcParams = new MapSqlParameterSource();
         jdbcParams.addValue(ContactsColumns.SQL_USER_ID, userId);
-        return jdbcTemplate.query(ContactsQueries.SQL_GET_USER_CONTACTS,
-                jdbcParams, new ContactRowMapper());
+        try {
+            List<Contact> userContacts = jdbcTemplate.query(ContactsQueries.SQL_GET_USER_CONTACTS,
+                    jdbcParams, new ContactRowMapper());
+            return userContacts;
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
+        }
     }
 
     public Contact addUserContact(Contact contact) {
         MapSqlParameterSource jdbcParams = params(contact);
-//        try {
+        try {
             jdbcTemplate.update(ContactsQueries.SQL_ADD_USER_CONTACT, jdbcParams);
             return contact;
-//        } catch (DataAccessException dataAccessException) {
-//            return false;
-//        }
-
+        } catch (DuplicateKeyException duplicateKeyException) {
+            throw new DuplicateEntryException("Contact Already Exists.");
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
+        }
     }
 
     public Contact updateUserContact(Contact contact) {
         MapSqlParameterSource jdbcParams = params(contact);
-//        try {
+        try {
             int rowCount = jdbcTemplate.update(ContactsQueries.SQL_UPDATE_USER_CONTACT, jdbcParams);
             if(rowCount == 0) {
-                return
+                throw new ResourceNotFoundException("Contact Not Found");
             }
             return contact;
-//        } catch (DataAccessException dataAccessException) {
-//            return false;
-//        }
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
+        }
     }
 
     public boolean deleteUserContact(Integer userId, String contactId) {
@@ -68,12 +78,14 @@ public class ContactsRepository implements DBConstants {
         jdbcParams.addValue(ContactsColumns.SQL_USER_ID, userId)
                 .addValue(ContactsColumns.SQL_CONTACT_ID, contactId);
         try {
-            jdbcTemplate.update(ContactsQueries.SQL_DELETE_USER_CONTACT, jdbcParams);
+            int rowCount = jdbcTemplate.update(ContactsQueries.SQL_DELETE_USER_CONTACT, jdbcParams);
+            if(rowCount == 0) {
+                throw new ResourceNotFoundException("Contact Not Found");
+            }
             return true;
-        } catch (DataAccessException dataAccessException) {
-            return false;
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
         }
-
     }
 
 

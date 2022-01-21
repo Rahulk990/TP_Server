@@ -1,9 +1,9 @@
 package com.flock.TP_server.exception;
 
-public class BadRequestException extends RuntimeException{
+public class DBException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
-    public BadRequestException(String msg) {
+    public DBException(String msg) {
         super(msg);
     }
 }
