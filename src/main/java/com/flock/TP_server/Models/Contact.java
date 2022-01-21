@@ -2,15 +2,16 @@ package com.flock.TP_server.models;
 
 
 public class Contact {
-    private int userId=0;
-    private String contactId="";
-    private String fullName="";
-    private String email="";
-    private String address="";
-    private String phoneNumber="";
+    private int userId = 0;
+    private String contactId = "";
+    private String fullName = "";
+    private String email = "";
+    private String address = "";
+    private String phoneNumber = "";
     private int score = 0;
 
-    public Contact() {}
+    public Contact() {
+    }
 
     public Contact(int userId, String contactId, String fullName, String email, String address, String phoneNumber, int score) {
         this.userId = userId;
@@ -26,7 +27,7 @@ public class Contact {
         return userId;
     }
 
-    public String setUserId(int userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -34,7 +35,7 @@ public class Contact {
         return contactId;
     }
 
-    public String setContactId(String contactId) {
+    public void setContactId(String contactId) {
         this.contactId = contactId;
     }
 

@@ -18,13 +18,13 @@ public class ContactsService {
         return contactsRepository.getUserContacts(userId);
     }
 
-    public boolean addUserContact(int userId, Contact contact){
+    public Contact addUserContact(int userId, Contact contact){
         contact.setUserId(userId);
-        contact.setContactId((new Timestamp(System.currentTimeMillis()).toString()));
+        contact.setContactId(new Timestamp(System.currentTimeMillis()).toString());
         return contactsRepository.addUserContact(contact);
     }
 
-    public boolean updateUserContact(Contact contact){
+    public Contact updateUserContact(Contact contact){
         return contactsRepository.updateUserContact(contact);
     }
 

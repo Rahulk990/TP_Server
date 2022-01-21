@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -36,32 +37,23 @@ public class ContactsRepository implements DBConstants {
                 jdbcParams, new ContactRowMapper());
     }
 
-    public boolean addUserContact(Contact contact) {
+    public Contact addUserContact(Contact contact) {
         MapSqlParameterSource jdbcParams = getContactParamsObjForJDBC(contact);
-        try {
-            jdbcTemplate.update(ContactsQueries.SQL_ADD_USER_CONTACT, jdbcParams);
-            return true;
-        } catch (DataAccessException dataAccessException) {
-            return false;
-        }
-
+        jdbcTemplate.update(ContactsQueries.SQL_ADD_USER_CONTACT, jdbcParams);
+        return contact;
     }
 
-    public boolean updateUserContact(Contact contact) {
+    public Contact updateUserContact(Contact contact) {
         MapSqlParameterSource jdbcParams = getContactParamsObjForJDBC(contact);
-        try {
-            jdbcTemplate.update(ContactsQueries.SQL_UPDATE_USER_CONTACT, jdbcParams);
-            return true;
-        } catch (DataAccessException dataAccessException) {
-            return false;
-        }
+        jdbcTemplate.update(ContactsQueries.SQL_UPDATE_USER_CONTACT, jdbcParams);
+        return contact;
     }
 
     public boolean deleteUserContact(int userId, String contactId) {
         MapSqlParameterSource jdbcParams = new MapSqlParameterSource();
         jdbcParams.addValue(ContactsColumns.SQL_USER_ID, userId)
                 .addValue(ContactsColumns.SQL_CONTACT_ID, contactId);
-        try{
+        try {
             jdbcTemplate.update(ContactsQueries.SQL_DELETE_USER_CONTACT, jdbcParams);
             return true;
         } catch (DataAccessException dataAccessException) {
