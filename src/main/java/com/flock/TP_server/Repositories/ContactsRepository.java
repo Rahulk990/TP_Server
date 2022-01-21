@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -61,7 +62,7 @@ public class ContactsRepository implements DBConstants {
         MapSqlParameterSource jdbcParams = new MapSqlParameterSource();
         jdbcParams.addValue(ContactsColumns.SQL_USER_ID, userId)
                 .addValue(ContactsColumns.SQL_CONTACT_ID, contactId);
-        try{
+        try {
             jdbcTemplate.update(ContactsQueries.SQL_DELETE_USER_CONTACT, jdbcParams);
             return true;
         } catch (DataAccessException dataAccessException) {

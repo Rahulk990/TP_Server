@@ -20,7 +20,7 @@ public class ContactsService {
 
     public Contact addUserContact(Integer userId, Contact contact){
         contact.setUserId(userId);
-        contact.setContactId((new Timestamp(System.currentTimeMillis()).toString()));
+        contact.setContactId(new Timestamp(System.currentTimeMillis()).toString());
         return contactsRepository.addUserContact(contact);
     }
 

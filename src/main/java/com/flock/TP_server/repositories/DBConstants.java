@@ -37,7 +37,7 @@ public interface DBConstants {
     }
 
     interface ContactsQueries {
-        String SQL_GET_USER_CONTACTS = "select * from contacts_table where user_id = :user_id";
+        String SQL_GET_USER_CONTACTS = "select * from contacts_table where user_id = :user_id order by full_name";
         String SQL_ADD_USER_CONTACT = "insert into contacts_table " +
                 "(user_id, contact_id, full_name, email, address, phone_number, score)" +
                 " values " +

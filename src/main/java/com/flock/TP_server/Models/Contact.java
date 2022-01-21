@@ -10,7 +10,8 @@ public class Contact {
     private String phoneNumber;
     private Integer score;
 
-    public Contact() {}
+    public Contact() {
+    }
 
     public Contact(Integer userId, String contactId, String fullName, String email, String address, String phoneNumber, Integer score) {
         this.userId = userId;
