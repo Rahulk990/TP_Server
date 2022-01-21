@@ -2,26 +2,26 @@ package com.flock.TP_server.models;
 
 public class User {
 
-    private int userId = 0;
-    private String fullName = "";
+    private Integer userId;
+    private String fullName;
     private String email;
     private String passwordHash;
 
     public User() {
     }
 
-    public User(int userId, String fullName, String email, String passwordHash) {
+    public User(Integer userId, String fullName, String email, String passwordHash) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
         this.passwordHash = passwordHash;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

@@ -14,7 +14,7 @@ public class UserDataController {
     private UserService userService;
 
     @GetMapping("/userData")
-    public User getUserData(@RequestAttribute int userId) {
+    public User getUserData(@RequestAttribute Integer userId) {
         return userService.getUserData(userId);
     }
 

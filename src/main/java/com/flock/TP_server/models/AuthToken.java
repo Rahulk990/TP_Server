@@ -4,22 +4,22 @@ import java.sql.Timestamp;
 
 public class AuthToken {
 
-    private int userId;
+    private Integer userId;
     private String token;
 
     public AuthToken() {
     }
 
-    public AuthToken(int userId) {
+    public AuthToken(Integer userId) {
         this.userId = userId;
         this.token = (new Timestamp(System.currentTimeMillis()).toString()) + userId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

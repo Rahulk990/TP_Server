@@ -11,7 +11,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUserData(int userId) {
+    public User getUserData(Integer userId) {
         return userRepository.getUserByUserId(userId);
     }
 

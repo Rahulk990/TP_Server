@@ -14,21 +14,21 @@ public class ContactsService {
     @Autowired
     private ContactsRepository contactsRepository;
 
-    public List<Contact> getUserContacts(int userId) {
+    public List<Contact> getUserContacts(Integer userId) {
         return contactsRepository.getUserContacts(userId);
     }
 
-    public boolean addUserContact(int userId, Contact contact){
+    public Contact addUserContact(Integer userId, Contact contact){
         contact.setUserId(userId);
         contact.setContactId((new Timestamp(System.currentTimeMillis()).toString()));
         return contactsRepository.addUserContact(contact);
     }
 
-    public boolean updateUserContact(Contact contact){
+    public Contact updateUserContact(Contact contact){
         return contactsRepository.updateUserContact(contact);
     }
 
-    public boolean deleteUserContact(int userId, String contactId){
+    public boolean deleteUserContact(Integer userId, String contactId){
         return contactsRepository.deleteUserContact(userId, contactId);
     }
 

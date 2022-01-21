@@ -29,35 +29,35 @@ public class ContactsRepository implements DBConstants {
         return params;
     }
 
-    public List<Contact> getUserContacts(int userId) {
+    public List<Contact> getUserContacts(Integer userId) {
         MapSqlParameterSource jdbcParams = new MapSqlParameterSource();
         jdbcParams.addValue(ContactsColumns.SQL_USER_ID, userId);
         return jdbcTemplate.query(ContactsQueries.SQL_GET_USER_CONTACTS,
                 jdbcParams, new ContactRowMapper());
     }
 
-    public boolean addUserContact(Contact contact) {
+    public Contact addUserContact(Contact contact) {
         MapSqlParameterSource jdbcParams = getContactParamsObjForJDBC(contact);
-        try {
+//        try {
             jdbcTemplate.update(ContactsQueries.SQL_ADD_USER_CONTACT, jdbcParams);
-            return true;
-        } catch (DataAccessException dataAccessException) {
-            return false;
-        }
+            return contact;
+//        } catch (DataAccessException dataAccessException) {
+//            return false;
+//        }
 
     }
 
-    public boolean updateUserContact(Contact contact) {
+    public Contact updateUserContact(Contact contact) {
         MapSqlParameterSource jdbcParams = getContactParamsObjForJDBC(contact);
-        try {
+//        try {
             jdbcTemplate.update(ContactsQueries.SQL_UPDATE_USER_CONTACT, jdbcParams);
-            return true;
-        } catch (DataAccessException dataAccessException) {
-            return false;
-        }
+            return contact;
+//        } catch (DataAccessException dataAccessException) {
+//            return false;
+//        }
     }
 
-    public boolean deleteUserContact(int userId, String contactId) {
+    public boolean deleteUserContact(Integer userId, String contactId) {
         MapSqlParameterSource jdbcParams = new MapSqlParameterSource();
         jdbcParams.addValue(ContactsColumns.SQL_USER_ID, userId)
                 .addValue(ContactsColumns.SQL_CONTACT_ID, contactId);
@@ -74,13 +74,13 @@ public class ContactsRepository implements DBConstants {
     static class ContactRowMapper implements RowMapper<Contact> {
         @Override
         public Contact mapRow(ResultSet rs, int rowNum) throws SQLException {
-            int userId = rs.getInt(ContactsColumns.SQL_USER_ID);
+            Integer userId = rs.getInt(ContactsColumns.SQL_USER_ID);
             String contactId = rs.getString(ContactsColumns.SQL_CONTACT_ID);
             String fullName = rs.getString(ContactsColumns.SQL_FULL_NAME);
             String email = rs.getString(ContactsColumns.SQL_EMAIL);
             String address = rs.getString(ContactsColumns.SQL_ADDRESS);
             String phoneNumber = rs.getString(ContactsColumns.SQL_PHONE_NUMBER);
-            int score = rs.getInt(ContactsColumns.SQL_SCORE);
+            Integer score = rs.getInt(ContactsColumns.SQL_SCORE);
             Contact contact = new Contact(userId, contactId, fullName, email, address, phoneNumber, score);
             return contact;
         }

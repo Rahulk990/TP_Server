@@ -28,7 +28,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         boolean isPresent = authenticationService.checkToken(token);
         if (isPresent) {
-            int userId = authenticationService.getUserId(token);
+            Integer userId = authenticationService.getUserId(token);
             request.setAttribute("userId", userId);
             return true;
         }

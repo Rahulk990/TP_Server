@@ -20,22 +20,22 @@ public class ContactsDataController {
     private ContactsService contactsService;
 
     @GetMapping("/contacts")
-    public List<Contact> getUserContacts(@RequestAttribute int userId) {
+    public List<Contact> getUserContacts(@RequestAttribute Integer userId) {
         return contactsService.getUserContacts(userId);
     }
 
     @PostMapping(path = "/contact", consumes="application/json", produces="application/json")
-    public boolean addUserContact(@RequestAttribute int userId, @RequestBody Contact contact) {
+    public Contact addUserContact(@RequestAttribute Integer userId, @RequestBody Contact contact) {
         return contactsService.addUserContact(userId, contact);
     }
 
     @PutMapping("/contact")
-    public boolean updateUserContact(@RequestBody Contact contact) {
+    public Contact updateUserContact(@RequestBody Contact contact) {
         return contactsService.updateUserContact(contact);
     }
 
     @DeleteMapping("/contact/{contactId}")
-    public boolean deleteUserContact(@RequestAttribute int userId, @PathVariable String contactId) {
+    public boolean deleteUserContact(@RequestAttribute Integer userId, @PathVariable String contactId) {
         return contactsService.deleteUserContact(userId, contactId);
     }
 

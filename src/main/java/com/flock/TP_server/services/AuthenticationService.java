@@ -49,7 +49,7 @@ public class AuthenticationService {
         return authTokenRepository.checkToken(token);
     }
 
-    public int getUserId(String token) {
+    public Integer getUserId(String token) {
         AuthToken authToken = authTokenRepository.getAuthTokenByToken(token);
         return authToken.getUserId();
     }

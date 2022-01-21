@@ -2,17 +2,17 @@ package com.flock.TP_server.models;
 
 
 public class Contact {
-    private int userId=0;
-    private String contactId="";
-    private String fullName="";
-    private String email="";
-    private String address="";
-    private String phoneNumber="";
-    private int score = 0;
+    private Integer userId;
+    private String contactId;
+    private String fullName;
+    private String email;
+    private String address;
+    private String phoneNumber;
+    private Integer score;
 
     public Contact() {}
 
-    public Contact(int userId, String contactId, String fullName, String email, String address, String phoneNumber, int score) {
+    public Contact(Integer userId, String contactId, String fullName, String email, String address, String phoneNumber, Integer score) {
         this.userId = userId;
         this.contactId = contactId;
         this.fullName = fullName;
@@ -22,11 +22,11 @@ public class Contact {
         this.score = score;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -70,11 +70,11 @@ public class Contact {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 }

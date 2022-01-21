@@ -35,6 +35,7 @@ public class UserRepository implements DBConstants {
             jdbcTemplate.update(UserQueries.SQL_INSERT_USER, params);
             return true;
         } catch (DataAccessException dataAccessException) {
+            System.out.println(dataAccessException);
             return false;
         }
     }
@@ -46,7 +47,7 @@ public class UserRepository implements DBConstants {
                 params, new UserRowMapper());
     }
 
-    public User getUserByUserId(int userId) {
+    public User getUserByUserId(Integer userId) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(UserColumns.SQL_USER_ID, userId);
         return jdbcTemplate.queryForObject(UserQueries.SQL_GET_USER_BY_USER_ID,
