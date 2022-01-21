@@ -12,23 +12,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.flock.TP_server.repositories.JDBCParams.params;
+
 @Repository
 public class ContactsRepository implements DBConstants {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    private MapSqlParameterSource getContactParamsObjForJDBC(Contact contact) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(ContactsColumns.SQL_USER_ID, contact.getUserId())
-                .addValue(ContactsColumns.SQL_CONTACT_ID, contact.getContactId())
-                .addValue(ContactsColumns.SQL_FULL_NAME, contact.getFullName())
-                .addValue(ContactsColumns.SQL_EMAIL, contact.getEmail())
-                .addValue(ContactsColumns.SQL_ADDRESS, contact.getAddress())
-                .addValue(ContactsColumns.SQL_PHONE_NUMBER, contact.getPhoneNumber())
-                .addValue(ContactsColumns.SQL_SCORE, contact.getScore());
-        return params;
-    }
+//    private MapSqlParameterSource getContactParamsObjForJDBC(Contact contact) {
+//        MapSqlParameterSource params = new MapSqlParameterSource();
+//        params.addValue(ContactsColumns.SQL_USER_ID, contact.getUserId())
+//                .addValue(ContactsColumns.SQL_CONTACT_ID, contact.getContactId())
+//                .addValue(ContactsColumns.SQL_FULL_NAME, contact.getFullName())
+//                .addValue(ContactsColumns.SQL_EMAIL, contact.getEmail())
+//                .addValue(ContactsColumns.SQL_ADDRESS, contact.getAddress())
+//                .addValue(ContactsColumns.SQL_PHONE_NUMBER, contact.getPhoneNumber())
+//                .addValue(ContactsColumns.SQL_SCORE, contact.getScore());
+//        return params;
+//    }
 
     public List<Contact> getUserContacts(Integer userId) {
         MapSqlParameterSource jdbcParams = new MapSqlParameterSource();
@@ -38,7 +40,7 @@ public class ContactsRepository implements DBConstants {
     }
 
     public Contact addUserContact(Contact contact) {
-        MapSqlParameterSource jdbcParams = getContactParamsObjForJDBC(contact);
+        MapSqlParameterSource jdbcParams = params(contact);
 //        try {
             jdbcTemplate.update(ContactsQueries.SQL_ADD_USER_CONTACT, jdbcParams);
             return contact;
@@ -49,9 +51,12 @@ public class ContactsRepository implements DBConstants {
     }
 
     public Contact updateUserContact(Contact contact) {
-        MapSqlParameterSource jdbcParams = getContactParamsObjForJDBC(contact);
+        MapSqlParameterSource jdbcParams = params(contact);
 //        try {
-            jdbcTemplate.update(ContactsQueries.SQL_UPDATE_USER_CONTACT, jdbcParams);
+            int rowCount = jdbcTemplate.update(ContactsQueries.SQL_UPDATE_USER_CONTACT, jdbcParams);
+            if(rowCount == 0) {
+                return
+            }
             return contact;
 //        } catch (DataAccessException dataAccessException) {
 //            return false;

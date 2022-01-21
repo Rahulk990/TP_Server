@@ -3,6 +3,8 @@ package com.flock.TP_server.controllers;
 import com.flock.TP_server.models.Contact;
 import com.flock.TP_server.services.ContactsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,13 +28,15 @@ public class ContactsDataController {
     }
 
     @PostMapping(path = "/contact", consumes="application/json", produces="application/json")
-    public Contact addUserContact(@RequestAttribute Integer userId, @RequestBody Contact contact) {
-        return contactsService.addUserContact(userId, contact);
+    public ResponseEntity<Contact> addUserContact(@RequestAttribute Integer userId, @RequestBody Contact contact) {
+        Contact contactCreated =  contactsService.addUserContact(userId, contact);
+        return new ResponseEntity<>(contactCreated, HttpStatus.CREATED);
     }
 
     @PutMapping("/contact")
     public Contact updateUserContact(@RequestBody Contact contact) {
-        return contactsService.updateUserContact(contact);
+        Contact contactUpdated = contactsService.updateUserContact(contact);
+        return contactUpdated;
     }
 
     @DeleteMapping("/contact/{contactId}")
