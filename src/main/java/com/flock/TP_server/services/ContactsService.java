@@ -2,6 +2,7 @@ package com.flock.TP_server.services;
 
 import com.flock.TP_server.models.Contact;
 import com.flock.TP_server.repositories.ContactsRepository;
+import com.flock.TP_server.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,13 @@ public class ContactsService {
     @Autowired
     private ContactsRepository contactsRepository;
 
-    public List<Contact> getUserContacts(int userId) {
+    public List<Contact> getUserContacts(Integer userId) {
         return contactsRepository.getUserContacts(userId);
     }
 
-    public Contact addUserContact(int userId, Contact contact){
+    public Contact addUserContact(Integer userId, Contact contact){
         contact.setUserId(userId);
-        contact.setContactId(new Timestamp(System.currentTimeMillis()).toString());
+        contact.setContactId(StringUtils.generateRandomString(10));
         return contactsRepository.addUserContact(contact);
     }
 
@@ -28,7 +29,7 @@ public class ContactsService {
         return contactsRepository.updateUserContact(contact);
     }
 
-    public boolean deleteUserContact(int userId, String contactId){
+    public boolean deleteUserContact(Integer userId, String contactId){
         return contactsRepository.deleteUserContact(userId, contactId);
     }
 

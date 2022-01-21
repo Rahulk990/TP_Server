@@ -1,8 +1,11 @@
 package com.flock.TP_server.repositories;
 
+import com.flock.TP_server.exception.DBException;
+import com.flock.TP_server.exception.DuplicateEntryException;
 import com.flock.TP_server.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,11 +24,16 @@ public class UserRepository implements DBConstants {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(UserColumns.SQL_EMAIL, user.getEmail())
                 .addValue(UserColumns.SQL_PASSWORD_HASH, user.getPasswordHash());
-        return Boolean.TRUE.equals(jdbcTemplate.query(UserQueries.SQL_CHECK_CREDENTIALS,
-                params, ResultSet::next));
+        try {
+            boolean isMatch = Boolean.TRUE.equals(jdbcTemplate.query(UserQueries.SQL_CHECK_CREDENTIALS,
+                    params, ResultSet::next));
+            return isMatch;
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
+        }
     }
 
-    public boolean insertUser(User user) {
+    public User insertUser(User user) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(UserColumns.SQL_FULL_NAME, user.getFullName())
                 .addValue(UserColumns.SQL_EMAIL, user.getEmail())
@@ -33,24 +41,36 @@ public class UserRepository implements DBConstants {
 
         try {
             jdbcTemplate.update(UserQueries.SQL_INSERT_USER, params);
-            return true;
-        } catch (DataAccessException dataAccessException) {
-            return false;
+            return user;
+        } catch (DuplicateKeyException duplicateKeyException) {
+            throw new DuplicateEntryException("Email Id already exists");
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
         }
     }
 
     public User getUserByEmail(String email) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(UserColumns.SQL_EMAIL, email);
-        return jdbcTemplate.queryForObject(UserQueries.SQL_GET_USER_BY_EMAIL,
-                params, new UserRowMapper());
+        try {
+            User user = jdbcTemplate.queryForObject(UserQueries.SQL_GET_USER_BY_EMAIL,
+                    params, new UserRowMapper());
+            return user;
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
+        }
     }
 
-    public User getUserByUserId(int userId) {
+    public User getUserByUserId(Integer userId) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(UserColumns.SQL_USER_ID, userId);
-        return jdbcTemplate.queryForObject(UserQueries.SQL_GET_USER_BY_USER_ID,
-                params, new UserRowMapper());
+        try {
+            User user = jdbcTemplate.queryForObject(UserQueries.SQL_GET_USER_BY_USER_ID,
+                    params, new UserRowMapper());
+            return user;
+        } catch(DataAccessException dataAccessException) {
+            throw new DBException(dataAccessException.getMessage());
+        }
     }
 
     static class UserRowMapper implements RowMapper<User> {
