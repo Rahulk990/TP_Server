@@ -3,9 +3,6 @@ package com.flock.TP_server.utils;
 
 import org.springframework.util.DigestUtils;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-
 public class StringUtils {
     public static String generateRandomString(int len) {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -39,17 +36,5 @@ public class StringUtils {
 
     public static String generateHashForString(String originalString) {
         return DigestUtils.md5DigestAsHex(originalString.getBytes());
-//        try {
-//            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//            byte[] encodedHash = digest.digest(
-//                    originalString.getBytes(StandardCharsets.UTF_8));
-//            String hashedString = bytesToHex(encodedHash);
-//            System.out.println(hashedString);
-//            return hashedString;
-//        } catch(Exception e) {
-//            System.out.println("what");
-//            return generateHashForString(originalString);
-//        }
-
     }
 }

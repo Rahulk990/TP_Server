@@ -1,20 +1,29 @@
 package com.flock.TP_server.models;
 
-public class User {
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
+public class User {
+    @Positive(message="Invalid User Id")
     private Integer userId;
+    @NotBlank(message="Name should not be blank")
     private String fullName;
+    @Email(message="Invalid Email")
     private String email;
-    private String passwordHash;
+    @NotBlank(message="Password should not be blank")
+    @Size(min=8, message="Password should have minimum 8 characters")
+    private String password;
 
     public User() {
     }
 
-    public User(Integer userId, String fullName, String email, String passwordHash) {
+    public User(Integer userId, String fullName, String email, String password) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
-        this.passwordHash = passwordHash;
+        this.password = password;
     }
 
     public Integer getUserId() {
@@ -41,11 +50,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

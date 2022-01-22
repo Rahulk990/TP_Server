@@ -8,8 +8,12 @@ import com.flock.TP_server.repositories.UserRepository;
 import com.flock.TP_server.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 @Service
+@Validated
 public class AuthenticationService {
 
     @Autowired
@@ -28,9 +32,9 @@ public class AuthenticationService {
     }
 
 
-    public String loginUser(User user) {
-        String passwordHash = StringUtils.generateHashForString(user.getPasswordHash());
-        user.setPasswordHash(passwordHash);
+    public String loginUser(@Valid User user) {
+        String passwordHash = StringUtils.generateHashForString(user.getPassword());
+        user.setPassword(passwordHash);
         boolean isPresent = userRepository.checkCredentials(user);
         if (!isPresent) {
             throw new ResourceNotFoundException("Incorrect Email or Password");
@@ -40,10 +44,9 @@ public class AuthenticationService {
         return generateToken(userDetails);
     }
 
-    public String registerUser(User user) {
-        String passwordHash = StringUtils.generateHashForString(user.getPasswordHash());
-        user.setPasswordHash(passwordHash);
-        System.out.println(user.getPasswordHash());
+    public String registerUser(@Valid User user) {
+        String passwordHash = StringUtils.generateHashForString(user.getPassword());
+        user.setPassword(passwordHash);
         userRepository.insertUser(user);
         User userDetails = userRepository.getUserByEmail(user.getEmail());
         return generateToken(userDetails);
