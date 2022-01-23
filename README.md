@@ -26,10 +26,10 @@ create table contacts_table (
 	user_id int not null,
 	contact_id varchar(100) not null,
 	full_name varchar(100) not null,
-	email varchar(100),
+	email varchar(100) not null,
 	address varchar(300),
-	phone_number varchar(20),
-	score int,
+	phone_number varchar(20) not null,
+	score int not null default 0,
     foreign key (user_id) references users_table(user_id),
     primary key(user_id, contact_id)
 );
