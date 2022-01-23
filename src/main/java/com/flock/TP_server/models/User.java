@@ -6,9 +6,8 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 public class User {
-    @Positive(message="Invalid User Id")
     private Integer userId;
-    @NotBlank(message="Name should not be blank")
+
     private String fullName;
     @Email(message="Invalid Email")
     private String email;

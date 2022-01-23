@@ -18,7 +18,7 @@ public class ControllerExceptionHandler {
         return message;
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class, BadRequestException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage badRequestException(Exception ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Invalid value(s) in request");

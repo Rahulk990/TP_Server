@@ -1,5 +1,6 @@
 package com.flock.TP_server.services;
 
+import com.flock.TP_server.exception.BadRequestException;
 import com.flock.TP_server.exception.ResourceNotFoundException;
 import com.flock.TP_server.models.AuthToken;
 import com.flock.TP_server.models.User;
@@ -9,8 +10,11 @@ import com.flock.TP_server.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.util.Set;
 
 @Service
 @Validated
@@ -45,6 +49,9 @@ public class AuthenticationService {
     }
 
     public String registerUser(@Valid User user) {
+        if(user.getFullName().trim() == "" || user.getFullName() == null) {
+            throw new BadRequestException("FullName should be empty");
+        }
         String passwordHash = StringUtils.generateHashForString(user.getPassword());
         user.setPassword(passwordHash);
         userRepository.insertUser(user);
