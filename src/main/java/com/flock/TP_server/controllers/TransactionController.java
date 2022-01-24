@@ -1,7 +1,8 @@
 package com.flock.TP_server.controllers;
 
-import com.flock.TP_server.models.LongWrapper;
+import com.flock.TP_server.models.LatestTransactionDetails;
 import com.flock.TP_server.models.Transaction;
+import com.flock.TP_server.models.Transactions;
 import com.flock.TP_server.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,12 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping("/latestId")
-    public LongWrapper getLatestId(@RequestAttribute Integer userId) {
-        return new LongWrapper(transactionService.getLatestId(userId));
+    public LatestTransactionDetails getLatestId(@RequestAttribute Integer userId) {
+        return new LatestTransactionDetails(transactionService.getLatestId(userId));
     }
 
     @GetMapping("/updates/{latestId}")
-    public List<Transaction> getUpdates(@RequestAttribute Integer userId, @PathVariable Long latestId) {
-        return transactionService.getNewTransactions(userId, latestId);
+    public Transactions getUpdates(@RequestAttribute Integer userId, @PathVariable Long latestId) {
+        return new Transactions(transactionService.getNewTransactions(userId, latestId));
     }
 }

@@ -1,6 +1,6 @@
 package com.flock.TP_server.controllers;
 
-import com.flock.TP_server.models.StringWrapper;
+import com.flock.TP_server.models.Token;
 import com.flock.TP_server.models.User;
 import com.flock.TP_server.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public StringWrapper loginUser(@RequestBody User user) {
-        return new StringWrapper(authenticationService.loginUser(user));
+    public Token loginUser(@RequestBody User user) {
+        return new Token(authenticationService.loginUser(user));
     }
 
     @PostMapping("/register")
-    public StringWrapper registerUser(@RequestBody User user) {
-        return new StringWrapper(authenticationService.registerUser(user));
+    public Token registerUser(@RequestBody User user) {
+        return new Token(authenticationService.registerUser(user));
     }
 }

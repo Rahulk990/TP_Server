@@ -1,6 +1,7 @@
 package com.flock.TP_server.controllers;
 
 import com.flock.TP_server.models.Contact;
+import com.flock.TP_server.models.Contacts;
 import com.flock.TP_server.services.ContactsService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class ContactsDataController {
     private ContactsService contactsService;
 
     @GetMapping("/contacts")
-    public List<Contact> getUserContacts(@RequestAttribute Integer userId) {
-        return contactsService.getUserContacts(userId);
+    public Contacts getUserContacts(@RequestAttribute Integer userId) {
+        return new Contacts(contactsService.getUserContacts(userId));
     }
 
     @PostMapping(path = "/contact", consumes = "application/json", produces = "application/json")
