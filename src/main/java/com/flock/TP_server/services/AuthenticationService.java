@@ -10,11 +10,8 @@ import com.flock.TP_server.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.util.Set;
 
 @Service
 @Validated
