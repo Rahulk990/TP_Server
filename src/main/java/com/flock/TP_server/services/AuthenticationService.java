@@ -49,7 +49,7 @@ public class AuthenticationService {
     }
 
     public String registerUser(@Valid User user) {
-        if(user.getFullName().trim() == "" || user.getFullName() == null) {
+        if(isFullNameNullOrBlank(user)) {
             throw new BadRequestException("FullName should be empty");
         }
         String passwordHash = StringUtils.generateHashForString(user.getPassword());
@@ -57,6 +57,14 @@ public class AuthenticationService {
         userRepository.insertUser(user);
         User userDetails = userRepository.getUserByEmail(user.getEmail());
         return generateToken(userDetails);
+    }
+
+    public static boolean isFullNameNullOrBlank(User user) {
+        if(user.getFullName() == null || user.getFullName().trim().equals("")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean checkToken(String token) {
