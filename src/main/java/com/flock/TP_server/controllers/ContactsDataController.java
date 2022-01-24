@@ -33,20 +33,19 @@ public class ContactsDataController {
         return contactsService.getUserContacts(userId);
     }
 
-    @PostMapping(path = "/contact", consumes="application/json", produces="application/json")
+    @PostMapping(path = "/contact", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Contact> addUserContact(@RequestAttribute Integer userId, @RequestBody Contact contact) {
-        Contact contactCreated =  contactsService.addUserContact(userId, contact);
+        Contact contactCreated = contactsService.addUserContact(userId, contact);
         return new ResponseEntity<>(contactCreated, HttpStatus.CREATED);
     }
 
     @PutMapping("/contact")
     public Contact updateUserContact(@RequestBody Contact contact) {
-        Contact contactUpdated = contactsService.updateUserContact(contact);
-        return contactUpdated;
+        return contactsService.updateUserContact(contact);
     }
 
     @DeleteMapping("/contact/{contactId}")
-    public HttpStatus deleteUserContact(@RequestAttribute Integer userId, @PathVariable @Size(min=10, max=10, message = "Invalid Contact Id") String contactId) {
+    public HttpStatus deleteUserContact(@RequestAttribute Integer userId, @PathVariable @Size(min = 10, max = 10, message = "Invalid Contact Id") String contactId) {
         contactsService.deleteUserContact(userId, contactId);
         return HttpStatus.OK;
     }

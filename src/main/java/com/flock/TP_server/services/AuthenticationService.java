@@ -29,16 +29,20 @@ public class AuthenticationService {
     @Autowired
     private AuthTokenRepository authTokenRepository;
 
+    public static boolean isFullNameNullOrBlank(User user) {
+        return user.getFullName() == null || user.getFullName().trim().equals("");
+    }
+
     private String generateToken(User user) {
         AuthToken authToken = new AuthToken(user.getUserId());
         authTokenRepository.insertAuthToken(authToken);
         return authToken.getToken();
     }
 
-
     public String loginUser(@Valid User user) {
         String passwordHash = StringUtils.generateHashForString(user.getPassword());
         user.setPassword(passwordHash);
+
         boolean isPresent = userRepository.checkCredentials(user);
         if (!isPresent) {
             throw new ResourceNotFoundException("Incorrect Email or Password");
@@ -49,7 +53,7 @@ public class AuthenticationService {
     }
 
     public String registerUser(@Valid User user) {
-        if(user.getFullName().trim() == "" || user.getFullName() == null) {
+        if (isFullNameNullOrBlank(user)) {
             throw new BadRequestException("FullName should be empty");
         }
         String passwordHash = StringUtils.generateHashForString(user.getPassword());

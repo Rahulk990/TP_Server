@@ -53,5 +53,16 @@ public interface DBConstants {
                 "where user_id = :user_id and contact_id = :contact_id";
     }
 
+    interface TransactionColumns {
+        String SQL_USER_ID = "user_id";
+        String SQL_TRANSACTION_ID = "transaction_id";
+        String SQL_LATEST_ID = "latest_id";
+        String SQL_TRANSACTION_STRING = "transaction_string";
+    }
+
+    interface TransactionQueries {
+        String SQL_GET_NEW_TRANSACTIONS = "select * from transactions_table where user_id=:user_id and transaction_id > :latest_id order by transaction_id";
+        String SQL_INSERT_TRANSACTION = "insert into transactions_table values (:user_id, :transaction_id, :transaction_string)";
+    }
 }
 

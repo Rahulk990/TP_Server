@@ -19,8 +19,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        // System.out.println("In the Pre Handle Interceptor");
-
         if (Objects.equals(request.getMethod(), "OPTIONS")) {
             return true;
         }

@@ -1,7 +1,6 @@
 package com.flock.TP_server.models;
 
 
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -10,9 +9,9 @@ import java.sql.Timestamp;
 
 
 public class AuthToken {
-    @Positive(message="Invalid UserId")
+    @Positive(message = "Invalid UserId")
     private Integer userId;
-    @NotBlank(message="Invalid Token")
+    @NotBlank(message = "Invalid Token")
     private String token;
 
     public AuthToken() {

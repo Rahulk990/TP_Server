@@ -13,7 +13,7 @@ public class StringUtils {
         StringBuilder sb = new StringBuilder(len);
 
         for (int i = 0; i < len; i++) {
-            int index = (int)(AlphaNumericString.length()
+            int index = (int) (AlphaNumericString.length()
                     * Math.random());
             sb.append(AlphaNumericString
                     .charAt(index));
@@ -26,7 +26,7 @@ public class StringUtils {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
         for (int i = 0; i < hash.length; i++) {
             String hex = Integer.toHexString(0xff & hash[i]);
-            if(hex.length() == 1) {
+            if (hex.length() == 1) {
                 hexString.append('0');
             }
             hexString.append(hex);

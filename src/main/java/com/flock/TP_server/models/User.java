@@ -9,10 +9,12 @@ public class User {
     private Integer userId;
 
     private String fullName;
-    @Email(message="Invalid Email")
+
+    @Email(message = "Invalid Email")
     private String email;
-    @NotBlank(message="Password should not be blank")
-    @Size(min=8, message="Password should have minimum 8 characters")
+
+    @NotBlank(message = "Password should not be blank")
+    @Size(min = 8, message = "Password should have minimum 8 characters")
     private String password;
 
     public User() {

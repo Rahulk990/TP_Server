@@ -1,24 +1,34 @@
 package com.flock.TP_server.models;
 
 
+import jdk.jfr.BooleanFlag;
+
 import javax.validation.constraints.*;
 
 public class Contact {
-    @Positive(message="Invalid UserId")
+    @Positive(message = "Invalid UserId")
     private Integer userId;
-    @Size(min=10, max=10, message = "Invalid Contact Id")
+    @Size(min = 10, max = 10, message = "Invalid Contact Id")
     private String contactId;
-    @NotBlank(message="Name should not be empty")
+    @NotBlank(message = "Name should not be empty")
     private String fullName;
-    @Email(message="Invalid Email")
+    @Email(message = "Invalid Email")
     private String email;
     private String address;
-    @Pattern(regexp="^[0-9]*$", message="Invalid Phone Number")
+    @Pattern(regexp = "^[0-9]*$", message = "Invalid Phone Number")
     private String phoneNumber;
-    @PositiveOrZero(message="Invalid Score")
+    @PositiveOrZero(message = "Invalid Score")
     private Integer score;
 
+    @BooleanFlag
+    private Boolean isDeleted;
+
     public Contact() {
+    }
+
+    public Contact(String contactId, Boolean isDeleted) {
+        this.contactId = contactId;
+        this.isDeleted = isDeleted;
     }
 
     public Contact(Integer userId, String contactId, String fullName, String email, String address, String phoneNumber, Integer score) {
@@ -85,5 +95,13 @@ public class Contact {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }
