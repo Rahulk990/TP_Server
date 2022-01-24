@@ -22,6 +22,7 @@ public class ContactsService {
     public Contact addUserContact(Integer userId, Contact contact){
         contact.setUserId(userId);
         contact.setContactId(StringUtils.generateRandomString(10));
+        contact.setScore(0);
         return contactsRepository.addUserContact(contact);
     }
 
@@ -29,8 +30,9 @@ public class ContactsService {
         return contactsRepository.updateUserContact(contact);
     }
 
-    public boolean deleteUserContact(Integer userId, String contactId){
-        return contactsRepository.deleteUserContact(userId, contactId);
+    public void deleteUserContact(Integer userId, String contactId){
+        contactsRepository.deleteUserContact(userId, contactId);
+        return;
     }
 
 }

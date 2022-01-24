@@ -2,9 +2,11 @@ package com.flock.TP_server.controllers;
 
 import com.flock.TP_server.models.Contact;
 import com.flock.TP_server.services.ContactsService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
+@Validated
 public class ContactsDataController {
 
     @Autowired
@@ -40,8 +46,9 @@ public class ContactsDataController {
     }
 
     @DeleteMapping("/contact/{contactId}")
-    public boolean deleteUserContact(@RequestAttribute Integer userId, @PathVariable String contactId) {
-        return contactsService.deleteUserContact(userId, contactId);
+    public HttpStatus deleteUserContact(@RequestAttribute Integer userId, @PathVariable @Size(min=10, max=10, message = "Invalid Contact Id") String contactId) {
+        contactsService.deleteUserContact(userId, contactId);
+        return HttpStatus.OK;
     }
 
 }

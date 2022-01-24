@@ -1,13 +1,21 @@
 package com.flock.TP_server.models;
 
 
+import javax.validation.constraints.*;
+
 public class Contact {
+    @Positive(message="Invalid UserId")
     private Integer userId;
+    @Size(min=10, max=10, message = "Invalid Contact Id")
     private String contactId;
+    @NotBlank(message="Name should not be empty")
     private String fullName;
+    @Email(message="Invalid Email")
     private String email;
     private String address;
+    @Pattern(regexp="^[0-9]*$", message="Invalid Phone Number")
     private String phoneNumber;
+    @PositiveOrZero(message="Invalid Score")
     private Integer score;
 
     public Contact() {
