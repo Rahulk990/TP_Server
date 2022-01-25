@@ -1,17 +1,17 @@
 package com.flock.TP_server.models;
 
 public class LatestTransactionDetails {
-    private Long latestId;
+    private String latestId;
 
-    public LatestTransactionDetails(Long latestId) {
+    public LatestTransactionDetails(String latestId) {
         this.latestId = latestId;
     }
 
-    public Long getLatestId() {
+    public String getLatestId() {
         return latestId;
     }
 
-    public void setLatestId(Long latestId) {
+    public void setLatestId(String latestId) {
         this.latestId = latestId;
     }
 }

@@ -20,7 +20,7 @@ public class TransactionController {
 
     @GetMapping("/latestId")
     public LatestTransactionDetails getLatestId(@RequestAttribute Integer userId) {
-        return new LatestTransactionDetails(transactionService.getLatestId(userId));
+        return new LatestTransactionDetails(transactionService.getLatestId(userId).toString());
     }
 
     @GetMapping("/updates/{latestId}")

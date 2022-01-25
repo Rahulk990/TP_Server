@@ -1,7 +1,5 @@
 package com.flock.TP_server.interceptors;
 
-import com.flock.TP_server.models.AuthToken;
-import com.flock.TP_server.repositories.AuthTokenRepository;
 import com.flock.TP_server.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

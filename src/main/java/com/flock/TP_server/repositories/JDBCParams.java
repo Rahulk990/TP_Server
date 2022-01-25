@@ -42,7 +42,7 @@ public class JDBCParams {
     public static MapSqlParameterSource params(Transaction transaction) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(DBConstants.TransactionColumns.SQL_USER_ID, transaction.getUserId())
-                .addValue(SQL_TRANSACTION_ID, transaction.getTransactionId())
+                .addValue(SQL_TRANSACTION_ID, Long.parseLong(transaction.getTransactionId()))
                 .addValue(SQL_TRANSACTION_STRING, transaction.getTransactionString());
         return params;
     }

@@ -3,14 +3,14 @@ package com.flock.TP_server.models;
 public class Transaction {
 
     private Integer userId;
-    private Long transactionId;
+    private String transactionId;
     private String transactionString;
 
     public Transaction() {}
 
     public Transaction(Integer userId, Long transactionId, String transactionString) {
         this.userId = userId;
-        this.transactionId = transactionId;
+        this.transactionId = transactionId.toString();
         this.transactionString = transactionString;
     }
 
@@ -22,12 +22,12 @@ public class Transaction {
         this.userId = userId;
     }
 
-    public Long getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
     public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+        this.transactionId = transactionId.toString();
     }
 
     public String getTransactionString() {
